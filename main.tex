@@ -176,13 +176,24 @@ we compute this as a Gaussian:\\
 $=\Pi_i e^{\frac{1}{2}J^2_i/\lambda_i}(2\pi/\lambda_i)^{1/2}=(2\pi)^{\frac{N}{2}}(\Pi_i \frac{1}{\lambda_i})(\Pi_i e^{\frac{1}{2}J^2_i/\lambda_i})=(*)$. \\
 We note that $M^{-1}_{ij}=\delta_{ij}\frac{1}{\lambda_i}$ (no sum on i), and the determinant is the product of the eigenvalues: $\det M =\Pi_i \frac{1}{\lambda_i}$. Plugging this into $(*)$:\\
 $=(2\pi)^{\frac{N}{2}}(\det (M^{-1}))^{\frac{1}{2}}e^{\sum_{i,j} \frac{1}{2}J_i\delta_{ij}(\frac{1}{\lambda_i})J_j}=$$(2\pi)^{\frac{N}{2}}(\det M)^{-\frac{1}{2}}e^{ \frac{1}{2}J^T(M^{-1})J}$.\\
-which is what we wanted to prove.\\\\
+which is what we wanted to prove.\\
 Now we wish to show:\\
 \begin{equation}
 \frac{1}{Z[0]} \int d^N q e^{-\frac{1}{2} q^T M q} F(q)=\left.\frac{1}{Z[0]} F\left(\frac{\partial}{\partial J}\right) Z[J]\right|_{J=0} .
 \end{equation}
+First we look at:
+\begin{equation*}
+\begin{split}
+    \frac{\partial}{\partial J} Z[J]|_{J=0} 
+    &=\frac{\partial}{\partial J} (2 \pi)^{\frac{N}{2}}(\operatorname{det} M)^{-\frac{1}{2}} e^{\frac{1}{2} J^T M^{-1} J} |_{J=0}\\
+    &= (2 \pi)^{\frac{N}{2}}(\operatorname{det} M)^{-\frac{1}{2}} e^{\frac{1}{2} J^T M^{-1} J} |_{J=0}
+    
+\end{split}
+\end{equation*}
 We can expand $F(q)$ as a Taylor series in $q$:\\
-$F(\mathbf{q})=\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}$
+$F(\mathbf{q})=\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}\mathbf{q}$
+Therefore:
+$F(\frac{\partial}{\partial J})=\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}\mathbf{q}$
 \subsection*{Anharmonic Oscilator}
 \begin{equation*}
     H=\frac{1}{2}p^2+\frac{1}{2}q^2+\frac{1}{4!}gq^4
@@ -193,12 +204,12 @@ We want to compute the propagator:\\
 \begin{equation} \label{eq:prop}
     \langle q(\tau_2)q(\tau_1)\rangle=\frac{\int [Dq]e^{\int_{\tau_1}^{\tau_2}d\tau'L_E}q(\tau_1)q(\tau_2)}{\int [Dq]e^{\int_{\tau_1}^{\tau_2}d\tau'L_E}}
 \end{equation}
-In our case $L_E=-(\frac{1}{2}(\partial_\tau q)^2+\frac{1}{2}q^2+\frac{1}{4!}gq^4)$. We label $L_E'=-(\frac{1}{2}(\partial_\tau q)^2+\frac{1}{2}q^2)$, and we can rewrite (\ref{eq:prop}) as:
+In our case $L_E=\frac{1}{2}(\partial_\tau q)^2+\frac{1}{2}q^2+\frac{1}{4!}gq^4$. We label $L_E'=-(\frac{1}{2}(\partial_\tau q)^2+\frac{1}{2}q^2)$, and we can rewrite (\ref{eq:prop}) as:
 \begin{equation} 
 \begin{split}
     \langle q(\tau_2)q(\tau_1)\rangle & 
-    =\frac{\int [Dq]e^{\int_{\tau_1}^{\tau_2}d\tau'L_E'}e^{\int_{\tau_1}^{\tau_2}d\tau' (-\frac{1}{4!}gq^4)}q(\tau_1)q(\tau_2)}{\int [Dq]e^{\int_{\tau_1}^{\tau_2}d\tau'L_E'}e^{\int_{\tau_1}^{\tau_2}d\tau' (-\frac{1}{4!}gq^4)}}\\
-    &=\frac{1}{\mathcal{Z}_g}\int [Dq]e^{\int_{\tau_1}^{\tau_2}d\tau'L_E'}e^{\int_{\tau_1}^{\tau_2}d\tau' (-\frac{1}{4!}gq^4)}q(\tau_1)q(\tau_2)
+    =\frac{\int [Dq]e^{-\int_{\tau_1}^{\tau_2}d\tau'L_E'}e^{\int_{\tau_1}^{\tau_2}d\tau' (-\frac{1}{4!}gq^4)}q(\tau_1)q(\tau_2)}{\int [Dq]e^{-\int_{\tau_1}^{\tau_2}d\tau'L_E'}e^{\int_{\tau_1}^{\tau_2}d\tau' (-\frac{1}{4!}gq^4)}}\\
+    &=\frac{1}{\mathcal{Z}_g}\int [Dq]e^{-\int_{\tau_1}^{\tau_2}d\tau'L_E'}e^{\int_{\tau_1}^{\tau_2}d\tau' (-\frac{1}{4!}gq^4)}q(\tau_1)q(\tau_2)
 \end{split}
 \end{equation}
 We can expand the exponent containing the anharmonic term: 
@@ -219,4 +230,33 @@ where
 \begin{equation*}
    \frac{\mathcal{Z}_g}{\mathcal{Z}_0} = \sum_{n=0}^{\infty}\frac{1}{n!}(-\frac{1}{4!}g)^n\overbrace{\idotsint}^n d\tau_1'\dots d\tau_n' \langle  q(\tau_1')^4\dots q(\tau_n')^4\rangle_{\text{harmonic}} 
 \end{equation*}
+We can see that the Feynman diagrams of $g^n$ have $n$, $q(\tau')^n$ terms to be contracted together with $q(\tau_1)$  and $q(\tau_2)$.  Notice, however, that the the Wick contractions that don't include $q(\tau_1)$ and $q(\tau_2)$ can be factored out and cancel out exactly with the $\frac{\mathcal{Z}_0}{\mathcal{Z_g}}$ term. The Feynman diagrams for $g^2$ have 2 four legged nodes and 2 one legged nodes. The different diagrams appear in Figure. We only look at part of the charts with  $q(\tau_1)$ and $q(\tau_2)$. From diagrams (a), (b), and (c):
+\begin{equation*}
+    (a)=8\times 4\times 3 \times 3 \times \frac{1}{2!}(\frac{-g}{4!})^2\int d\tau'_1\int d\tau'_2 G(\tau_1,\tau'_1)G(\tau'_1,\tau'_1)G(\tau'_1,\tau'_2)G(\tau'_2,\tau'_2)G(\tau'_2,\tau_2)
+\end{equation*}
+\begin{equation*}
+   (b)=8\times 4 \times 3\times 3\times 2 \times 2 \times \frac{1}{2!}(\frac{-g}{4!})^2\int d\tau'_1\int d\tau'_2 G(\tau_1,\tau'_1)[G(\tau'_1,\tau'_2)]^3G(\tau'_2,\tau_2)
+\end{equation*}
+\begin{equation*}
+   (c)=8\times 3 \times 2\times 4\times 3 \times \frac{1}{2!}(\frac{-g}{4!})^2\int d\tau'_1\int d\tau'_2 G(\tau_1,\tau'_1)[G(\tau'_1,\tau'_2)]^2G(\tau'_2,\tau'_2)G(\tau'_2,\tau_2)
+\end{equation*}
+Now we calculate each integral:
+\begin{equation*}
+\begin{split}
+    (a) &=8\times 4\times 3 \times 3 \times \frac{1}{2!}(\frac{g}{4!})^2\int d\tau'_1\int d\tau'_2 G(\tau_1,\tau'_1)G(\tau'_1,\tau'_1)G(\tau'_1,\tau'_2)G(\tau'_2,\tau'_2)G(\tau'_2,\tau_2)\\
+    &=  \frac{g^2}{4}\int d\tau'_1\int d\tau'_2 G(\tau_1,\tau'_1)G(\tau'_1,\tau'_1)G(\tau'_1,\tau'_2)G(\tau'_2,\tau'_2)G(\tau'_2,\tau_2)\\
+    &=  \frac{g^2}{4}\int d\tau'_1\int d\tau'_2 G(\tau_1 -\tau'_1)G(\tau'_1-\tau'_1)G(\tau'_1-\tau'_2)G(\tau'_2-\tau'_2)G(\tau'_2-\tau_2)
+\end{split}
+\end{equation*}
+we use the fact that for a harmonic oscillator:
+\begin{equation}
+    G(\tau)=\frac{1}{2\omega}e^{-\omega|\tau|}=\int \frac{dp}{2\pi}\frac{e^{p\tau}}{p^2+\omega^2}
+\end{equation}
+plugging this into (a):
+\begin{equation*}
+\begin{split}
+    (a) &=  \frac{g^2}{4}(\frac{1}{2})^2\int d\tau'_1\int d\tau'_2 \int \frac{dp}{2\pi}\frac{e^{p(\tau_1-\tau'_1)}}{p^2+\omega^2}\int \frac{dp'}{2\pi}\frac{e^{p'(\tau'_1-\tau'_2)}}{p'^2+\omega^2}\int \frac{dp''}{2\pi}\frac{e^{p''(\tau'_2-\tau_2)}}{p''^2+\omega^2}
+\end{split}
+\end{equation*}
+
 \end{document}
