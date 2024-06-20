@@ -178,22 +178,35 @@ We note that $M^{-1}_{ij}=\delta_{ij}\frac{1}{\lambda_i}$ (no sum on i), and the
 $=(2\pi)^{\frac{N}{2}}(\det (M^{-1}))^{\frac{1}{2}}e^{\sum_{i,j} \frac{1}{2}J_i\delta_{ij}(\frac{1}{\lambda_i})J_j}=$$(2\pi)^{\frac{N}{2}}(\det M)^{-\frac{1}{2}}e^{ \frac{1}{2}J^T(M^{-1})J}$.\\
 which is what we wanted to prove.\\
 Now we wish to show:\\
-\begin{equation}
+\begin{equation} \label{eq:gauss prove}
 \frac{1}{Z[0]} \int d^N q e^{-\frac{1}{2} q^T M q} F(q)=\left.\frac{1}{Z[0]} F\left(\frac{\partial}{\partial J}\right) Z[J]\right|_{J=0} .
 \end{equation}
-First we look at:
+By definition:
+\begin{equation*}
+    F(\frac{\partial}{\partial J})=\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}(\mathbf{\frac{\partial}{\partial J}})^n
+\end{equation*}
+
+We look at the RHS of (\ref{eq:gauss prove}) and plug in the definition of $Z[J]$ and $ F(\frac{\partial}{\partial J})$ above we get:
 \begin{equation*}
 \begin{split}
-    \frac{\partial}{\partial J} Z[J]|_{J=0} 
-    &=\frac{\partial}{\partial J} (2 \pi)^{\frac{N}{2}}(\operatorname{det} M)^{-\frac{1}{2}} e^{\frac{1}{2} J^T M^{-1} J} |_{J=0}\\
-    &= (2 \pi)^{\frac{N}{2}}(\operatorname{det} M)^{-\frac{1}{2}} e^{\frac{1}{2} J^T M^{-1} J} |_{J=0}
-    
+   \frac{1}{Z[0]}F\left(\frac{\partial}{\partial J}\right) Z[J]|_{J=0} 
+    &= \frac{1}{Z[0]}\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}(\mathbf{\frac{\partial}{\partial J}})^n\int d^N q e^{-\frac{1}{2} q^T M q+J \cdot q}|_{J=0}\\
+    &=\frac{1}{Z[0]}\int d^N q e^{-\frac{1}{2} q^T M q} \sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}\underbrace{(\mathbf{\frac{\partial}{\partial J}})^ne^{J \cdot q}}_{\equiv A}|_{J=0}=(*)\\   
 \end{split}
 \end{equation*}
-We can expand $F(q)$ as a Taylor series in $q$:\\
-$F(\mathbf{q})=\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}\mathbf{q}$
-Therefore:
-$F(\frac{\partial}{\partial J})=\sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}\mathbf{q}$
+We look at $A$:
+\begin{equation} \label{eq:A}
+        A=(\mathbf{\frac{\partial}{\partial J}})^ne^{J \cdot q}=(\mathbf{\frac{\partial}{\partial J}})^{n-1}e^{J \cdot q}\mathbf{q}=(\mathbf{\frac{\partial}{\partial J}})^{n-2}e^{J \cdot q}\mathbf{q}^2=\dots = e^{J \cdot q}\mathbf{q}^n
+\end{equation}
+We plug $A$ into $(*)$:
+\begin{equation*}
+\begin{split}
+    \frac{1}{Z[0]}F\left(\frac{\partial}{\partial J}\right) Z[J]|_{J=0}&=\frac{1}{Z[0]}\int d^N q e^{-\frac{1}{2} q^T M q+J\cdot q}\overbrace{ \sum_{n=0}^{\infty} \frac{1}{n!}\frac{\partial^{(n)}F}{\partial \mathbf{q}^n}|_{\mathbf{q}=0}\mathbf{q}^n}^{\text{Maclauren Series of $F(q)$}}|_{J=0}\\
+    &=\frac{1}{Z[0]}\int d^N q e^{-\frac{1}{2} q^T M q+J\cdot q}F(q)|_{J=0}\\
+    &=\frac{1}{Z[0]}\int d^N q e^{-\frac{1}{2} q^T M q}F(q)
+\end{split}
+\end{equation*}
+We proved (\ref{eq:gauss prove}).
 \subsection*{Anharmonic Oscilator}
 \begin{equation*}
     H=\frac{1}{2}p^2+\frac{1}{2}q^2+\frac{1}{4!}gq^4
