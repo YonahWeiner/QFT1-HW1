@@ -100,7 +100,55 @@ because $[H,e^{Ht}]=0$:
     \end{split}
 \end{equation*}
 \subsubsection*{(d)}
-
+\begin{equation} \label{variation propgator}
+    \int [Dq] e^{\frac{i}{\hbar}\int_{t^I}^{t^F}dt'L}q(t)\fdv{S}{q(t)}
+\end{equation}
+We write the action explicitly:\\
+\begin{equation}
+    S[q(t)]=\int_{t^I}^{t^F}dt'\frac{1}{2}m\dot{q}(t')^2-V(q(t'))
+\end{equation}
+We choose a simple regularization where time is divided into even intervals $\Delta t=\Delta$:
+Then:
+\begin{equation*}
+    t_n = \Delta n
+    q_n = q(t_n)
+    \dot{q}(t_n)\rightarrow \frac{q_{n+1}-q_n}{\Delta}
+\end{equation*}
+\begin{equation}
+    S[\{q_n\}]=\sum_n\frac{1}{2}m\left(\frac{q_{n+1}-q_n}{\Delta}\right)^2-V(q_n)
+\end{equation}
+\begin{equation*}
+\begin{split}
+        \fdv{S}{q(t)}\rightarrow\pdv{S[\{q_n\}]}{q_m}
+        &=\pdv{q_m}\sum_n \frac{1}{2}m\left(\frac{q_{n+1}-q_n}{\Delta}\right)^2-V(q_n)\\
+        &=\sum_n \frac{1}{2}m\pdv{q_m}\left(\frac{q^2_{n+1}-2q_{n+1}q_n+q^2_n}{\Delta^2}\right)-\pdv{V(q_n)}{q_m}\\
+        &=\sum_n \frac{1}{2}m\left(\frac{2\pdv{q_{n+1}}{q_m}-2\pdv{q_{n+1}}{q_m}q_n-2q_{n+1}\pdv{q_n}{q_m}+2\pdv{q_n}{q_m}}{\Delta^2}\right)-\pdv{V(q_n)}{q_n}\pdv{q_n}{q_m}\\
+        &=\sum_n m\left(\frac{q_{n+1}-q_n}{\Delta}\right)\left(\frac{\delta_{n+1,m}-\delta_{nm}}{\Delta}\right)-\pdv{V(q_n)}{q_n}\pdv{q_n}{q_m}\\
+        &=\int dt' m\dot{q}(t')\pdv{t'}\delta(t-t')-\pdv{V(q)}{q}\delta(t'-t)
+\end{split}
+\end{equation*}
+To deal with the derivative of the delta function, we integrate by parts and then ignore the boudary term. We get:
+\begin{equation*}
+\begin{split}
+        \fdv{S}{q(t)}=-m\ddot{q}-\pdv{q}V(q)
+\end{split}
+\end{equation*}
+We put this into (\ref{variation propgator}):
+\begin{equation}
+   - \int [Dq] e^{\frac{i}{\hbar}\int_{t^I}^{t^F}dt'L}q(t)(m\ddot{q}+\pdv{q}V)=(*)
+\end{equation}
+Once again we move to our regularization:
+\begin{equation*}
+    (*)=\frac{1}{\Delta}\langle 
+\end{equation*}
+Now we calculate the same thing with integration by parts:
+\begin{equation} 
+\begin{split}
+        \int [Dq] e^{\frac{i}{\hbar}\int_{t^I}^{t^F}dt'L}q(t)\fdv{S}{q(t)} 
+        = -i\hbar\int [Dq] \fdv{e^{\frac{i}{\hbar}\int_{t^I}^{t^F}dt'L}}{q(t)}q(t)
+        &= +i\hbar\int [Dq] e^{\frac{i}{\hbar}\int_{t^I}^{t^F}dt'L}\fdv{q(t)}{q(t)}
+\end{split}
+\end{equation}
 \subsection*{Harmonic Oscillator}
 \subsection*{Solution}
 For an harmonic oscillator,\\
@@ -116,7 +164,6 @@ For an harmonic oscillator,\\
 \begin{equation*}
     e^{iHt/\hbar}=\sum_{n}e^{i\omega nt}\ket{n}\bra{n}
 \end{equation*}
-
 Using these relations, we could calculate:\\
 $\bra{0}q(t)q(0)\ket{0}=$$\bra{0}e^{\frac{i}{\hbar} H t}q_Se^{-\frac{i}{\hbar}Ht}q_S\ket{0}=$\\
 $=\bra{0}(\sum_{k}e^{i\omega kt}\ket{k}\bra{k})\sqrt{\frac{\hbar}{2\omega}}(a^\dagger + a)(\sum_{n}e^{-i\omega nt}\ket{n}\bra{n})\sqrt{\frac{\hbar}{2\omega}}(a^\dagger + a)\ket{0}$\\
