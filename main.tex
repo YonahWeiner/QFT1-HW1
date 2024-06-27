@@ -152,9 +152,9 @@ Now we calculate the same thing with integration by parts:
 \subsection*{Harmonic Oscillator}
 \subsection*{Solution}
 For an harmonic oscillator,\\
-\begin{equation*}
+\begin{equation} \label{eq:harmonic q}
     q_S=\sqrt{\frac{\hbar}{2\omega}}(a^\dagger + a)
-\end{equation*}
+\end{equation}
 \begin{equation*}
     a^\dagger\ket{n}=\sqrt{n+1}\ket{n+1}
 \end{equation*}
@@ -309,16 +309,51 @@ Now we calculate each integral:
 \end{split}
 \end{equation*}
 we use the fact that for a harmonic oscillator:
-\begin{equation}
+\begin{equation} \label{eq:propogator int}
     G(\tau)=\frac{1}{2\omega}e^{-\omega|\tau|}=\int \frac{dp}{2\pi}\frac{e^{p\tau}}{p^2+\omega^2}
 \end{equation}
 plugging this into (a):
 \begin{equation*}
 \begin{split}
-    (a) &=  \frac{g^2}{4}(\frac{1}{2})^2\int d\tau'_1\int d\tau'_2 \int \frac{dp}{2\pi}\frac{e^{p(\tau_1-\tau'_1)}}{p^2+\omega^2}\int \frac{dp'}{2\pi}\frac{e^{p'(\tau'_1-\tau'_2)}}{p'^2+\omega^2}\int \frac{dp''}{2\pi}\frac{e^{p''(\tau'_2-\tau_2)}}{p''^2+\omega^2}
+    (a) &=  \frac{g^2}{16}\int d\tau'_1\int d\tau'_2 \int \frac{dp}{2\pi}\frac{e^{p(\tau_1-\tau'_1)}}{p^2+\omega^2}\int \frac{dp'}{2\pi}\frac{e^{p'(\tau'_1-\tau'_2)}}{p'^2+\omega^2}\int \frac{dp''}{2\pi}\frac{e^{p''(\tau'_2-\tau_2)}}{p''^2+\omega^2}
 \end{split}
 \end{equation*}
-
-
-
+Now we calculate (b)
+\begin{equation*}
+	\begin{split}
+			(b)&= g^2\int d\tau'_1\int d\tau'_2 G(\tau_1,\tau'_1)[G(\tau'_1,\tau'_2)]^3G(\tau'_2,\tau_2)
+	\end{split}
+\end{equation*}
+We plug in (\ref{eq:propogator int}):
+\begin{equation*}
+		(b) = g^2\int d \tau'_1 \int d \tau'_2 \int \frac{dp}{2\pi} \frac{e^{p(\tau'_1-\tau_1)}}{p^2+\omega^2} \left(\int \frac{dp'}{2\pi}\frac{e^{p'(\tau'_2-\tau'_1)}}{p'^2+\omega^2}\right)^3\int \frac{dp''}{2\pi}\frac{e^{p''(\tau'_2-\tau'_1)}}{p''^2+\omega^2}
+\end{equation*}
+We do the same thing for (c):
+\begin{equation*}
+	(c)= \frac{g^2}{4}\int d \tau'_1 \int d \tau'_2 \int \frac{dp}{2\pi} \frac{e^{p(\tau'_1-\tau_1)}}{p^2+\omega^2} \left(\int \frac{dp'}{2\pi}\frac{e^{p'(\tau'_2-\tau'_1)}}{p'^2+\omega^2}\right)^2\int \frac{dp''}{2\pi}\frac{e^{p''(\tau'_2-\tau'_1)}}{p''^2+\omega^2}
+\end{equation*}
+\subsubsection*{(b) Comute in standard perturbation theory the correction to the ground state energy in first order in
+	g and compare to the expression we obtained in class.}
+	\subsubsection*{Solution}
+	In standard perturbation theory the first order correction is given bey:
+	\begin{equation*}
+		\Delta E_n = \bra{n}H_{pert}\ket{n} 
+	\end{equation*}
+	where $\ket{n}$ are the energy eigenstates of the free hamiltonian and $H_{pert}$ is the pertubation part of the hamiltonian. The free energy hamiltonian eigenstates are $\ket{n}=(a^{\dagger})^n\ket{0}$. In class we only looked at the ground state energy $\ket{0}$. We will also do that here. Therefore:
+	\begin{equation*}
+		\begin{split}
+			\Delta E_0 &= \bra{0}H_{pert}\ket{0}\\
+			&= \frac{g}{4!}\bra{0}\hat{q}^4\ket{0}=(*)
+		\end{split}
+	\end{equation*}
+	We plug in (\ref{eq:harmonic q}):
+	\begin{equation*}
+		\begin{split}
+		 		(*)&=\frac{g}{4!}\bra{0}\left(\sqrt{\frac{\hbar}{2\omega}}(a^\dagger + a) \right) ^4\ket{0}\\
+		 		&= \frac{g\hbar^2}{4\omega^2 4!}\bra{0}\left(a^\dagger + a\right) ^4\ket{0}\\
+		 		&= \frac{g}{4!}\frac{\hbar^2}{4\omega^2 }\bra{0}\left(a^\dagger + a\right)\left(a^\dagger + a\right)\left(a^\dagger + a\right)\left(a^\dagger + a\right)\ket{0}\\
+		 		&= \frac{g}{4!}\frac{\hbar^2}{4\omega^2 }\bra{0}\left((a^\dagger)^2+a^\dagger a + aa^\dagger + a^2\right)\left((a^\dagger)^2+a^\dagger a + aa^\dagger + a^2\right)\ket{0}
+		 		&= \frac{g}{4!}\frac{\hbar^2}{4\omega^2 }\bra{0}\left((a^\dagger)^2+a^\dagger a + aa^\dagger + a^2\right)\left((a^\dagger)^2+a^\dagger a + aa^\dagger + a^2\right)\ket{0}
+		\end{split}
+	\end{equation*}
 \end{document}
